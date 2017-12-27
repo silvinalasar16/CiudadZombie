@@ -8,20 +8,19 @@ var Juego = {
     ganador: false,
 
     obstaculosCarretera: [
-      /*Aca se van a agregar los obstaculos visibles. Tenemos una valla horizontal
-    de ejemplo, pero podras agregar muchos mas. */
-      new Obstaculo('imagenes/valla_vertical.png', 80, 170, 30, 30, 1),
+      /*Agregar obstáculos al mapa. */
+      new Obstaculo('imagenes/valla_horizontal.png', 80, 170, 30, 30, 1),
       new Obstaculo('imagenes/bache.png', 60, 200, 30, 30, 1),
       new Obstaculo('imagenes/valla_horizontal.png', 70, 430, 30, 30, 1),
       new Obstaculo('imagenes/bache.png', 80, 420, 30, 30, 1),
       new Obstaculo('imagenes/valla_vertical.png', 180, 380, 30, 30, 1),
-      new Obstaculo('imagenes/bache.png', 290, 490, 30, 30, 1),
-      new Obstaculo('imagenes/valla_horizontal.png', 360, 80, 30, 30, 1),
-      new Obstaculo('imagenes/bache.png', 330, 90, 30, 30, 1),
+      new Obstaculo('imagenes/bache.png', 490, 490, 30, 30, 1),
+      new Obstaculo('imagenes/valla_vertical.png', 360, 80, 30, 30, 1),
+      new Obstaculo('imagenes/bache.png', 270, 230, 30, 30, 1),
       new Obstaculo('imagenes/auto_verde_abajo.png', 170, 280, 15, 30, 1),
       new Obstaculo('imagenes/valla_horizontal.png', 500, 350, 30, 30, 1),
-      new Obstaculo('imagenes/bache.png', 450, 330, 30, 30, 1),
-      new Obstaculo('imagenes/valla_vertical.png', 790, 400, 30, 30, 1),
+      new Obstaculo('imagenes/bache.png', 480, 330, 30, 30, 1),
+      new Obstaculo('imagenes/valla_horizontal.png', 780, 350, 30, 30, 1),
       new Obstaculo('imagenes/bache.png', 860, 480, 30, 30, 1),
       new Obstaculo('imagenes/valla_horizontal.png', 790, 280, 30, 30, 1),
       new Obstaculo('imagenes/bache.png', 800, 300, 30, 30, 1),
@@ -48,7 +47,7 @@ var Juego = {
       new Obstaculo('', 279, 23, 664, 56, 2),
       new Obstaculo('', 887, 79, 56, 480, 2)
       ],
-      // Los enemigos se agregaran en este arreglo.
+      // Agregar los enemigos//
     enemigos: [
       new ZombieCaminante('imagenes/zombie1.png', 390, 155, 10, 10, 1, {
         desdeX: 0,
@@ -110,7 +109,7 @@ var Juego = {
     },'h'),
 
     ]
-  }
+  };
 
 /* Se cargan los recursos de las imagenes, para tener un facil acceso
 a ellos. No hace falta comprender esta parte. Pero si queres agregar tus propies
@@ -118,7 +117,6 @@ imagenes tendras que poner su ruta en la lista para que pueda ser precargada com
 todas las demas. */
 Juego.iniciarRecursos = function() {
     Resources.load([
-      'imagenes/Mensaje1.png',
       'imagenes/mapa.png',
       'imagenes/mensaje_gameover.png',
       'imagenes/Splash.png',
@@ -221,7 +219,7 @@ Juego.dibujar = function() {
   var tamanio = this.anchoCanvas / this.vidasInicial;
   Dibujante.dibujarRectangulo('white', 0, 0, this.anchoCanvas, 8);
   for (var i = 0; i < this.jugador.vidas; i++) {
-    var x = tamanio * i
+    var x = tamanio * i;
     Dibujante.dibujarRectangulo('red', x, 0, tamanio, 8);
   }
 };
@@ -234,7 +232,7 @@ una funcionalidad similar pero para que se muevan.*/
 Juego.moverEnemigos = function() {
   this.enemigos.forEach(function (enemigo) {
     enemigo.mover();
-  })
+  });
 };
 
 /* Recorre los enemigos para ver cual esta colisionando con el jugador
@@ -261,27 +259,27 @@ Juego.chequearColisiones = function(x, y) {
   var puedeMoverse = true;
   this.obstaculos().forEach(function(obstaculo) {
     if (this.intersecan(obstaculo, this.jugador, x, y)) {
-      obstaculo.chocar(this.jugador)
+      obstaculo.chocar(this.jugador);
       puedeMoverse = false
     }
-  }, this)
-  return puedeMoverse
+  }, this);
+  return puedeMoverse;
 };
 
 /* Este metodo chequea si los elementos 1 y 2 si cruzan en x e y
  x e y representan la coordenada a la cual se quiere mover el elemento2*/
 Juego.intersecan = function(elemento1, elemento2, x, y) {
-  var izquierda1 = elemento1.x
-  var derecha1 = izquierda1 + elemento1.ancho
-  var techo1 = elemento1.y
-  var piso1 = techo1 + elemento1.alto
-  var izquierda2 = x
-  var derecha2 = izquierda2 + elemento2.ancho
-  var techo2 = y
-  var piso2 = y + elemento2.alto
+  var izquierda1 = elemento1.x;
+  var derecha1 = izquierda1 + elemento1.ancho;
+  var techo1 = elemento1.y;
+  var piso1 = techo1 + elemento1.alto;
+  var izquierda2 = x;
+  var derecha2 = izquierda2 + elemento2.ancho;
+  var techo2 = y;
+  var piso2 = y + elemento2.alto;
 
   return ((piso1 >= techo2) && (techo1 <= piso2) &&
-    (derecha1 >= izquierda2) && (izquierda1 <= derecha2))
+    (derecha1 >= izquierda2) && (izquierda1 <= derecha2));
 };
 
 Juego.dibujarFondo = function() {
