@@ -5,12 +5,12 @@ no son exactamente los mismos parametros que en el objeto Enemigo, a diferencia
 del ZombieCaminante que eran los mismos. */
 var ZombieConductor = function(sprite, x, y, ancho, alto, velocidad, rangoMov, direccion) {
       /* Completar constructor a partir de Enemigo */
-    Enemigo.call(this, sprite, x, y, ancho, alto, velocidad, rangoMov);
-    this.direccion = direccion;
-    }
+  Enemigo.call(this, sprite, x, y, ancho, alto, velocidad, rangoMov);
+  this.direccion = direccion;
+  }
 
-    ZombieConductor.prototype = Object.create(Enemigo.prototype);
-    ZombieConductor.prototype.constructor = ZombieConductor;
+  ZombieConductor.prototype = Object.create(Enemigo.prototype);
+  ZombieConductor.prototype.constructor = ZombieConductor;
 
     ZombieConductor.prototype.mover = function() {
           if(this.direccion == 'h') {
